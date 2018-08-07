@@ -22,5 +22,16 @@ stop:
 clean: stop
 	rm -f .build
 
+# This target always return 0 as exit code.
+# If you want to fail this target(ex. CI), you must create a wrapper script like:
+# 	make lint 2>&1 | grep Error; if [ $? -eq 0 ]; then exit 1; fi
+lint:
+	-flake8 $(SRC)
+	-pydocstyle $(SRC)
+	-mypy $(SRC)
+
+format:
+	autopep8 --in-place --aggressive --recursive $(SRC)
+
 tags: Dockerfile requirements.txt $(SRC)
 	ctags -R --exclude=.git
