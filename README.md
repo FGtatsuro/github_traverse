@@ -33,3 +33,25 @@ $ open http://127.0.0.1:6543
 ```bash
 $ make stop
 ```
+
+## Development
+
+1. Create a tag file.
+
+```bash
+$ make tags
+```
+
+2. Implement the application.
+
+```bash
+$ vi app.py
+...
+```
+
+3. Run lint/format.
+
+```bash
+$ make lint
+$ make format
+```
