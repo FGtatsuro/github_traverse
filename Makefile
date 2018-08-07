@@ -21,3 +21,6 @@ stop:
 
 clean: stop
 	rm -f .build
+
+tags: Dockerfile requirements.txt $(SRC)
+	ctags -R --exclude=.git
