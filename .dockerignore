@@ -1,0 +1,13 @@
+**/__pycache__/
+*.pyc
+
+.dockerignore
+.git
+.gitignore
+
+.build
+
+Dockerfile
+LICENSE
+Makefile
+README.md
