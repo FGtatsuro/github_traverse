@@ -3,7 +3,7 @@ CONTAINER_NAME = github_traverse_container
 TIME_ZONE = Asia/Tokyo
 SRC = app.py
 
-.PHONY: all build start stop clean lint format tags
+.PHONY: all build start stop restart clean lint format tags
 
 all: start
 
@@ -18,6 +18,8 @@ start: build
 
 stop:
 	-docker rm -f $(CONTAINER_NAME)
+
+restart: stop start
 
 clean: stop
 	rm -f .build
