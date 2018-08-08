@@ -3,7 +3,7 @@ CONTAINER_NAME = github_traverse_container
 TIME_ZONE = Asia/Tokyo
 SRC = app.py
 
-.PHONY: all build start stop clean
+.PHONY: all build start stop clean lint format tags
 
 all: start
 
