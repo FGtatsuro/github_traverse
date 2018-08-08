@@ -17,7 +17,7 @@ but the behavior on that case can't be supported officially.
 1. Run the application on a Docker container.
 
 ```bash
-$ make run
+$ make start
 ```
 
 2. Acess an index page.
