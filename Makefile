@@ -3,9 +3,9 @@ CONTAINER_NAME = github_traverse_container
 TIME_ZONE = Asia/Tokyo
 SRC = app.py
 
-.PHONY: all build run stop clean
+.PHONY: all build start stop clean
 
-all: run
+all: start
 
 build: .build
 
@@ -13,7 +13,7 @@ build: .build
 	docker build -t $(TAG) .
 	touch .build
 
-run: build
+start: build
 	docker run -d --name $(CONTAINER_NAME) -p 6543:6543 -e TZ=$(TIME_ZONE) $(TAG) python app.py
 
 stop:
