@@ -1,5 +1,6 @@
 **/__pycache__/
 *.pyc
+.mypy_cache/
 
 .dockerignore
 .git
@@ -11,3 +12,8 @@ Dockerfile
 LICENSE
 Makefile
 README.md
+requirements-dev.txt
+
+# For tag creation
+tags
+pyramid
