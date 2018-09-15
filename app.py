@@ -17,8 +17,11 @@ if __name__ == '__main__':
         config.add_route('hello', '/')
         config.add_view(hello_world, route_name='hello')
 
-        config.add_route('json', '/json')
+        config.add_route('json', '/json/')
         config.add_view(json, route_name='json')
+
+        # FYI: https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/urldispatch.html#redirecting-to-slash-appended-routes
+        config.add_notfound_view(append_slash=True)
 
         app = config.make_wsgi_app()
     server = make_server('0.0.0.0', 6543, app)
