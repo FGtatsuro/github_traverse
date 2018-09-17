@@ -1,4 +1,4 @@
 autopep8
 pydocstyle
 mypy
-flake8
+git+https://github.com/PyCQA/flake8.git@master#egg=flake8
