@@ -1,7 +1,7 @@
 TAG = github_traverse:latest
 CONTAINER_NAME = github_traverse_container
 TIME_ZONE = Asia/Tokyo
-SRC = $(wildcard github_traverse/*.py)
+SRC = setup.py $(wildcard github_traverse/*.py)
 
 .PHONY: all build start stop restart clean lint format tags
 
@@ -9,12 +9,13 @@ all: start
 
 build: .build
 
-.build: Dockerfile requirements.txt $(SRC)
+.build: Dockerfile requirements.txt development.ini $(SRC)
 	docker build -t $(TAG) .
 	touch .build
 
 start: build
-	docker run -d --name $(CONTAINER_NAME) -p 6543:6543 -e TZ=$(TIME_ZONE) $(TAG) python github_traverse/__init__.py
+	docker run -d --name $(CONTAINER_NAME) -p 6543:6543 -e TZ=$(TIME_ZONE) $(TAG) \
+		gunicorn --paste development.ini --bind 0.0.0.0:6543
 
 stop:
 	-docker rm -f $(CONTAINER_NAME)
