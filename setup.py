@@ -37,7 +37,8 @@ setup(
     include_package_data=True,
 
     install_requires=[
-        'pyramid'
+        'pyramid',
+        'gunicorn'
     ],
     python_requires='>=3',
 )
