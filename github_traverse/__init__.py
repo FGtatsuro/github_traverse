@@ -23,9 +23,3 @@ def main(global_config=None, **settings):
     # FYI: https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/urldispatch.html#redirecting-to-slash-appended-routes
     config.add_notfound_view(append_slash=True)
     return config.make_wsgi_app()
-
-
-if __name__ == '__main__':
-    app = main()
-    server = make_server('0.0.0.0', 6543, app)
-    server.serve_forever()
