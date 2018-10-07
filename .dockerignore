@@ -1,10 +1,15 @@
 **/__pycache__/
-*.pyc
+**/*.pyc
 .mypy_cache/
+.venv*
+*.egg-info
+dist
 
 .dockerignore
 .git
 .gitignore
+.github
+**/.gitkeep
 
 .build
 
