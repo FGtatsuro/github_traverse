@@ -1,4 +1,3 @@
-from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 from pyramid.response import Response
 
@@ -20,6 +19,7 @@ def main(global_config=None, **settings):
     config.add_route('json', '/json/')
     config.add_view(json, route_name='json')
 
-    # FYI: https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/urldispatch.html#redirecting-to-slash-appended-routes
+    # FYI:
+    # https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/urldispatch.html#redirecting-to-slash-appended-routes
     config.add_notfound_view(append_slash=True)
     return config.make_wsgi_app()
