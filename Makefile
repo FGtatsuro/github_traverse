@@ -3,7 +3,7 @@ CONTAINER_NAME = github_traverse_container
 TIME_ZONE = Asia/Tokyo
 SRC = setup.py $(wildcard github_traverse/*.py)
 
-.PHONY: all build start stop restart clean lint format tags
+.PHONY: all build start stop logs restart clean lint format tags
 
 all: start
 
@@ -19,6 +19,9 @@ start: build
 
 stop:
 	-docker rm -f $(CONTAINER_NAME)
+
+logs:
+	docker logs -f $(CONTAINER_NAME)
 
 restart: stop start
 
