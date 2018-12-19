@@ -14,8 +14,13 @@ build: .build
 	touch .build
 
 start: build
-	docker run -d --name $(CONTAINER_NAME) -p 6543:6543 -e TZ=$(TIME_ZONE) $(TAG) \
-		gunicorn --paste development.ini --bind 0.0.0.0:6543
+	if [ -z "`docker ps | grep $(CONTAINER_NAME)`" ]; then \
+		docker run -d --name $(CONTAINER_NAME) \
+		-p 6543:6543 \
+		-e TZ=$(TIME_ZONE) \
+		$(TAG) \
+		gunicorn --paste development.ini --bind 0.0.0.0:6543; \
+	fi
 
 stop:
 	-docker rm -f $(CONTAINER_NAME)
