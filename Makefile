@@ -32,9 +32,11 @@ lint:
 	-flake8 $(SRC)
 	-pydocstyle $(SRC)
 	-mypy $(SRC)
+	-isort --diff $(SRC)
 
 format:
 	autopep8 --in-place --aggressive $(SRC)
+	isort $(SRC)
 
 tags: Dockerfile requirements.txt $(SRC)
 	ctags -R --exclude=.git
