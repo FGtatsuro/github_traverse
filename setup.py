@@ -1,21 +1,22 @@
-from setuptools import setup, find_packages
 from pathlib import Path
 
+from setuptools import find_packages, setup
 
 # FYI: https://packaging.python.org/guides/making-a-pypi-friendly-readme/
-with open(Path(__file__).parent.resolve()/'README.md') as f:
+with open(Path(__file__).parent.resolve() / 'README.md') as f:
     readme = f.read()
 
-# Ref: 
+# Ref:
 #    https://packaging.python.org/guides/distributing-packages-using-setuptools/
 #    https://setuptools.readthedocs.io/en/latest/setuptools.html
-# FYI: 
+# FYI:
 #    https://github.com/pypa/sampleproject/blob/master/setup.py
 #    https://github.com/Pylons/pyramid-cookiecutter-starter/blob/latest/%7B%7Bcookiecutter.repo_name%7D%7D/setup.py
 setup(
     name='github_traverse',
     version='0.1.0',
-    description='A web application to collect issues/PRs from multiple Github repositories on one place.',
+    description='''\
+A web application to collect issues/PRs from multiple Github repositories on one place.''',
 
     # FYI: https://packaging.python.org/guides/making-a-pypi-friendly-readme/
     long_description=readme,
