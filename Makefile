@@ -34,7 +34,7 @@ lint:
 	-mypy $(SRC)
 
 format:
-	autopep8 --in-place --aggressive --recursive $(SRC)
+	autopep8 --in-place --aggressive $(SRC)
 
 tags: Dockerfile requirements.txt $(SRC)
 	ctags -R --exclude=.git
