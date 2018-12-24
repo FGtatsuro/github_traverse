@@ -1,6 +1,7 @@
 TAG = github_traverse:latest
 CONTAINER_NAME = github_traverse_container
 TIME_ZONE = Asia/Tokyo
+LOG_LEVEL = INFO
 SRC = setup.py $(wildcard github_traverse/*.py)
 
 .PHONY: all build start stop logs restart clean lint format tags
@@ -18,6 +19,7 @@ start: build
 		docker run -d --name $(CONTAINER_NAME) \
 		-p 6543:6543 \
 		-e TZ=$(TIME_ZONE) \
+		-e LOG_LEVEL=$(LOG_LEVEL) \
 		$(TAG) \
 		gunicorn --paste development.ini --bind 0.0.0.0:6543; \
 	fi
