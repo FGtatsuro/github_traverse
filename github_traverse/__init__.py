@@ -1,5 +1,10 @@
+import logging
+import os
+
 from pyramid.config import Configurator
 from pyramid.response import Response
+
+logger = logging.getLogger(__name__)
 
 
 def hello_world(request):
@@ -11,6 +16,10 @@ def json(request):
 
 
 def main(global_config=None, **settings):
+    logging.basicConfig(
+        level=os.environ.get('LOG_LEVEL', 'INFO')
+    )
+
     config = Configurator(settings=settings)
 
     config.add_route('hello', '/')
