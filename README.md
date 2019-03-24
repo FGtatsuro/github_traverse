@@ -17,7 +17,7 @@ but the behavior on that case can't be supported officially.
 1. Run the application on a Docker container.
 
 ```bash
-$ make start
+$ make app/start
 ```
 
 2. Acess an index page.
@@ -31,7 +31,7 @@ $ open http://127.0.0.1:6543
 1. Stop the application.
 
 ```bash
-$ make stop
+$ make app/stop
 ```
 
 ## Development
