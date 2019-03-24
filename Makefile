@@ -4,17 +4,17 @@ TIME_ZONE = Asia/Tokyo
 LOG_LEVEL = INFO
 SRC = setup.py $(wildcard github_traverse/*.py)
 
-.PHONY: all build start stop logs restart clean lint format tags
+.PHONY: all app/build app/start app/stop app/logs app/restart clean lint format tags
 
-all: start
-
-build: .build
+all: app/start
 
 .build: Dockerfile requirements.txt development.ini $(SRC)
 	docker build -t $(TAG) .
 	touch .build
 
-start: build
+app/build: .build
+
+app/start: app/build
 	if [ -z "`docker ps | grep $(CONTAINER_NAME)`" ]; then \
 		docker run -d --name $(CONTAINER_NAME) \
 		-p 6543:6543 \
@@ -24,15 +24,15 @@ start: build
 		gunicorn --paste development.ini --bind 0.0.0.0:6543; \
 	fi
 
-stop:
+app/stop:
 	-docker rm -f $(CONTAINER_NAME)
 
-logs:
+app/logs:
 	docker logs -f $(CONTAINER_NAME)
 
-restart: stop start
+app/restart: app/stop app/start
 
-clean: stop
+clean: app/stop
 	rm -f .build
 
 # This target always return 0 as exit code.
