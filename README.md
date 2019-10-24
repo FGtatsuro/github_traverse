@@ -2,7 +2,9 @@
 
 Web service to traverse github issues in multiple repositories(For Pyramid trial).
 
-## Requirements
+## Deployment on local
+
+### Requirements
 
 The dependencies on other softwares/libraries for this project.
 This software may work even if these requirements aren't met,
@@ -12,44 +14,45 @@ but the behavior on that case can't be supported officially.
 - [GNU Make](https://www.gnu.org/software/make/) (>= 3.81)
 - [Python](https://www.python.org/) (>= 3.7.x) (For development)
 
-## Start the service
-
-1. Run the application on a Docker container.
+### Build the image
 
 ```bash
+$ make app/build
+```
+
+### Start the service
+
+Run the application with DB on a Docker container.
+
+```bash
+$ make db/start
 $ make app/start
 ```
 
-2. Acess an index page.
+Acess an index page.
 
 ```bash
-$ open http://127.0.0.1:6543
+$ open http://<reachable IP>:6543
 ```
 
-## Stop the service
+### Stop the service
 
-1. Stop the application.
+Stop the application.
 
 ```bash
 $ make app/stop
+$ make db/stop
 ```
 
-## Development
+## Development tips
 
-1. Create a tag file.
+Create a ctags file.
 
 ```bash
 $ make tags
 ```
 
-2. Implement the application.
-
-```bash
-$ vi app.py
-...
-```
-
-3. Run lint/format.
+Run lint/format.
 
 ```bash
 $ make lint
