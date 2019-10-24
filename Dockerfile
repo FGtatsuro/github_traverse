@@ -3,7 +3,7 @@
 # - https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
 # - https://hub.docker.com/_/python/
 # FYI: https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/container_engine/django_tutorial/Dockerfile
-FROM asia.gcr.io/google_appengine/python:latest
+FROM gcr.io/google_appengine/python:latest
 
 # Backward compatibility with deprecate onbuild image.
 # FYI: https://github.com/docker-library/python/pull/314/files#diff-7531449f9a1a85f134eba7d960a91c91L1
