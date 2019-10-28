@@ -84,6 +84,11 @@ app/logs:
 app/restart: app/stop app/start
 
 
+.PHONY: trigger
+trigger:
+	@(make -C trigger `cat trigger/Makefile | grep -P '^[-_/0-9a-zA-Z]+:' | peco | sed s/:.*$$//g`)
+
+
 .PHONY: clean lint format tags
 clean: app/stop
 	rm -f .build

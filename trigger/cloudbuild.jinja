@@ -1,0 +1,12 @@
+resources:
+  - name: {{ env["name"] }}-imagebuild
+    type: gcp-types/cloudbuild-v1:projects.triggers
+    properties:
+      name: {{ env["name"] }}-imagebuild
+      description: A trigger to build a container image of this project
+      filename: cloudbuild.yaml
+      github:
+        name: github_traverse
+        owner: FGtatsuro
+        push:
+          branch: .*-triggertest
