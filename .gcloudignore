@@ -1,0 +1,6 @@
+# Ref: https://cloud.google.com/sdk/gcloud/reference/topic/gcloudignore
+.gcloudignore
+.git
+.github
+.gitignore
+#!include:.gitignore
