@@ -1,0 +1,5 @@
+info:
+  title: github_traverse Cloud Build triggers
+  author: Tatsuro Fujii
+  description: Create Cloud Build triggers related to github_traverse project
+

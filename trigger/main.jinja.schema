@@ -1,0 +1,7 @@
+info:
+  title: github_traverse resources
+  author: Tatsuro Fujii
+  description: Create GCP resources related to github_traverse project
+
+imports:
+  - path: cloudbuild.jinja
