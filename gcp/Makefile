@@ -23,5 +23,5 @@ destroy:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments list --filter='name:$(deployment_name)' 2>/dev/null))
 	@if [ -n "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments delete $(deployment_name); \
-		gcloud alpha builds triggers delete `gcloud alpha builds triggers list --format="value(id)"`; \
+		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-trigger-imagebuild --format="value(id)"`; \
 	fi
