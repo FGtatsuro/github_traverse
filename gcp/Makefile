@@ -24,5 +24,5 @@ destroy:
 	@# Now, Deployment Manager doesn't support cascading delete of Cloud Build Trigger.
 	@if [ -n "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments delete $(deployment_name); \
-		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-trigger-imagebuild --format="value(id)"`; \
+		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-trigger-imagebuild --format="value(id)"` --quiet; \
 	fi
