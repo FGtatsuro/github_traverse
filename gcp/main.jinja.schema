@@ -5,3 +5,4 @@ info:
 
 imports:
   - path: cloudbuild.jinja
+  - path: cloudfunctions.jinja

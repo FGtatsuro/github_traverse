@@ -1,0 +1,20 @@
+resources:
+  - name: {{ env["name"] }}
+    type: gcp-types/cloudfunctions-v1:projects.locations.functions
+    properties:
+      # ATTENTION: function/parent aren't included in the schema 'gcloud beta deployment-manager types describe' gives
+      # FYI: https://github.com/GoogleCloudPlatform/deploymentmanager-samples/blob/master/google/resource-snippets/cloudfunctions-v1/empty_bucket_in_function.jinja
+      function: {{ properties["functionName"] }}
+      location: {{ properties["region"] }}
+      parent: "projects/{{ env['project'] }}/locations/{{ properties['region'] }}"
+      description: {{ properties["description"] }}
+      entryPoint: {{ properties["entryPoint"] }}
+      runtime: python37
+      eventTrigger:
+        resource: "projects/{{ env['project'] }}/topics/cloud-builds"
+        eventType: providers/cloud.pubsub/eventTypes/topic.publish
+      sourceRepository:
+        url: {{ properties["gcpSourceRepositoryUrl"] }}
+      environmentVariables:
+        SLACK_WEBHOOK_URL: {{ properties["slackWebhookUrl"] }}
+        REPO_NAME: {{ properties["githubRepository"] }}

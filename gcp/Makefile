@@ -3,8 +3,10 @@ deployment_name := github-traverse
 .PHONY: create preview update destroy
 create:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments list --filter='name:$(deployment_name)' 2>/dev/null))
+	$(if $(SLACK_WEBHOOK_URL),, $(error This task requires SLACK_WEBHOOK_URL as an environment variable))
 	@if [ -z "$(OUTPUT)" ]; then \
-		gcloud deployment-manager deployments create $(deployment_name) --template main.jinja --automatic-rollback-on-error; \
+		gcloud deployment-manager deployments create $(deployment_name) --template main.jinja \
+		--properties "slackWebhookUrl:'$(SLACK_WEBHOOK_URL)'" --automatic-rollback-on-error; \
 	fi
 
 preview:
