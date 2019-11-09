@@ -15,6 +15,12 @@ preview:
 		gcloud deployment-manager deployments update $(deployment_name) --template main.jinja --preview; \
 	fi
 
+cancel:
+	$(eval OUTPUT := $(shell gcloud deployment-manager deployments list --filter='name:$(deployment_name)' 2>/dev/null))
+	@if [ -n "$(OUTPUT)" ]; then \
+		gcloud deployment-manager deployments cancel-preview $(deployment_name); \
+	fi
+
 update:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments list --filter='name:$(deployment_name)' 2>/dev/null))
 	@if [ -n "$(OUTPUT)" ]; then \
