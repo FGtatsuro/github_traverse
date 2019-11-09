@@ -1,0 +1,44 @@
+info:
+  title: github_traverse Cloud Functions
+  author: Tatsuro Fujii
+  description: Create Cloud Functions functions related to github_traverse project
+
+required:
+  - functionName
+  - description
+  - region
+  - entryPoint
+  - githubRepository
+  - gcpSourceRepositoryUrl
+  - slackWebhookUrl
+
+properties:
+  functionName:
+    type: string
+    description: User defined name of the function resource
+
+  description:
+    type: string
+    description: Description of the function resources
+
+  region:
+    type: string
+    description: Region the function resource runs
+
+  entryPoint:
+    type: string
+    description: function identifier in deployed script
+
+  githubRepository:
+    type: string
+    description: Github repository name related to the function resource
+
+  gcpSourceRepositoryUrl:
+    type: string
+    description: |
+      URL representing path of deloyed script in Cloud Source Repositories.
+      Please check accepted format from gcloud(gcloud functions deploy) help.
+
+  slackWebhookUrl:
+    type: string
+    description: Slack Incoming Webhook URL related to the functions resource

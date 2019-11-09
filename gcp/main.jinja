@@ -1,5 +1,17 @@
 {% set PREFIX = "github-traverse" %}
+# Not all regions in US supports Cloud Functions
+# Ref: https://cloud.google.com/about/locations/
+{% set FUNCTION_REGION = "us-central1" %}
 
 resources:
   - name: {{ PREFIX }}-trigger
     type: cloudbuild.jinja
+  - name: {{ PREFIX }}-function-notification
+    type: cloudfunctions.jinja
+    properties:
+      functionName: github-traverse-notification
+      description: "A script for notification on github_traverse project"
+      region: {{ FUNCTION_REGION }}
+      entryPoint: notification
+      githubRepository: github_traverse
+      gcpSourceRepositoryUrl: "https://source.developers.google.com/projects/{{ env['project'] }}/repos/github_fgtatsuro_github_traverse/moveable-aliases/master/paths/gcp/notification"
