@@ -37,3 +37,5 @@ https://console.cloud.google.com/gcr/images/{os.environ['GCP_PROJECT']}/GLOBAL/{
     )
     with urllib.request.urlopen(req) as res:
         pass
+    # https://cloud.google.com/functions/docs/writing/background#functions_background_terminate-python
+    return
