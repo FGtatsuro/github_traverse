@@ -11,8 +11,10 @@ create:
 
 preview:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments list --filter='name:$(deployment_name)' 2>/dev/null))
+	$(if $(SLACK_WEBHOOK_URL),, $(error This task requires SLACK_WEBHOOK_URL as an environment variable))
 	@if [ -n "$(OUTPUT)" ]; then \
-		gcloud deployment-manager deployments update $(deployment_name) --template main.jinja --preview; \
+		gcloud deployment-manager deployments update $(deployment_name) --template main.jinja \
+		--properties "slackWebhookUrl:'$(SLACK_WEBHOOK_URL)'" --preview; \
 	fi
 
 cancel:
