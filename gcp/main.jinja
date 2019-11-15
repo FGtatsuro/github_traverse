@@ -2,6 +2,7 @@
 # Not all regions in US supports Cloud Functions
 # Ref: https://cloud.google.com/about/locations/
 {% set FUNCTION_REGION = "us-central1" %}
+{% set KEY_REGION = "us" %}
 
 resources:
   - name: {{ PREFIX }}-trigger
@@ -16,3 +17,10 @@ resources:
       githubRepository: github_traverse
       gcpSourceRepositoryUrl: "https://source.developers.google.com/projects/{{ env['project'] }}/repos/github_fgtatsuro_github_traverse/moveable-aliases/master/paths/gcp/notification"
       slackWebhookUrl: {{ properties["slackWebhookUrl"] }}
+  - name: {{ PREFIX }}
+    type: cloudkms.jinja
+    properties:
+      region: {{ KEY_REGION }}
+      rotationPeriod: 5184000s # 60d
+      # Without string explicitly, this value is converted to datetime and validation error occurs.
+      nextRotationTime: "2019-12-31T15:00:00Z"
