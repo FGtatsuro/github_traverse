@@ -1,0 +1,30 @@
+info:
+  title: github_traverse Cloud KMS
+  author: Tatsuro Fujii
+  description: Create Cloud KMS resources related to github_traverse project
+
+required:
+  - region
+  - nextRotationTime
+
+properties:
+  region:
+    type: string
+    description: KMS region for github_traverse
+
+  rotationPeriod:
+    type: string
+    format: google-duration
+    # Ref.
+    #   https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/duration.proto
+    #   https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys
+    description: Rotation period of created encrypt key
+    default: 2592000s # 30d
+
+  nextRotationTime:
+    type: string
+    format: google-datetime
+    # Ref.
+    #   https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/timestamp.proto
+    #   https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys
+    description: date for next key rotation of created encrypt key

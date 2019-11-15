@@ -1,0 +1,16 @@
+# https://github.com/GoogleCloudPlatform/deploymentmanager-samples/blob/master/google/resource-snippets/cloudkms-v1/kms.jinja
+resources:
+  - name: {{ env["name"] }}-keyring
+    type: gcp-types/cloudkms-v1:projects.locations.keyRings
+    properties:
+      keyRingId: {{ env["name"] }}-keyring
+      parent: projects/{{ env["project"] }}/locations/{{ properties["region"] }}
+  - name: {{ env["name"] }}-key
+    type: gcp-types/cloudkms-v1:projects.locations.keyRings.cryptoKeys
+    properties:
+      cryptoKeyId: {{ env["name"] }}-key
+      parent: $(ref.{{ env["name"] }}-keyring.name)
+      purpose: ENCRYPT_DECRYPT
+      rotationPeriod: {{ properties["rotationPeriod"] }}
+      # Without string explicitly, this value is converted to datetime and validation error occurs.
+      nextRotationTime: "{{ properties['nextRotationTime'] }}"
