@@ -10,3 +10,16 @@ resources:
         owner: FGtatsuro
         push:
           branch: .*-triggertest
+  - name: {{ env["name"] }}-noticiationdeploy
+    type: gcp-types/cloudbuild-v1:projects.triggers
+    properties:
+      name: {{ env["name"] }}-noticiationdeploy
+      description: A trigger to deploy notification script when it is updated
+      filename: gcp/notification/cloudbuild.yaml
+      github:
+        name: github_traverse
+        owner: FGtatsuro
+        push:
+          branch: .*-triggertest
+      includedFiles:
+        - gcp/notification/*
