@@ -1,0 +1,10 @@
+# FYI: https://cloud.google.com/cloud-build/docs/securing-builds/use-encrypted-secrets-credentials
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    args: ['kms', 'decrypt', '--ciphertext-file=secrets.json.enc', '--plaintext-file=secrets.json', '--location=us', '--keyring=github-traverse-keyring', '--key=github-traverse-key']
+  - name: gcr.io/cloud-builders/gcloud
+    # For using subshell/pipe
+    entrypoint: bash
+    args: ['-c', 'gcloud functions deploy github-traverse-notification --entry-point notification --runtime python37 --trigger-event providers/cloud.pubsub/eventTypes/topic.publish --trigger-resource cloud-builds --source https://source.developers.google.com/projects/$PROJECT_ID/repos/github_fgtatsuro_github_traverse/moveable-aliases/master/paths/gcp/notification --set-env-vars SLACK_WEBHOOK_URL=`cat secrets.json | grep SLACK_WEBHOOK_URL | sed s/SLACK_WEBHOOK_URL=//`,REPO_NAME=github_traverse']
+    timeout: 60s
+timeout: 60s
