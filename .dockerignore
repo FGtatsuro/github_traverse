@@ -4,6 +4,9 @@
 .venv*
 *.egg-info
 dist
+setup.cfg
+setup.py
+MANIFEST.in
 
 .dockerignore
 .git
