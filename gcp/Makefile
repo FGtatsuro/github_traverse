@@ -3,7 +3,8 @@ deployment_name := github-traverse
 .PHONY: create preview cancel update destroy
 create:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments list --filter='name:$(deployment_name)' 2>/dev/null))
-	$(if $(SLACK_WEBHOOK_URL),, $(error This task requires SLACK_WEBHOOK_URL as an environment variable))
+	$(eval SLACK_WEBHOOK_URL := $(shell gcloud kms decrypt --ciphertext-file ../secrets.json.enc --plaintext-file - --location us --keyring github-traverse-keyring --key github-traverse-key | grep SLACK_WEBHOOK_URL | sed s/SLACK_WEBHOOK_URL=//))
+	$(if $(SLACK_WEBHOOK_URL),, $(error Secret(secrets.json.enc) must include SLACK_WEBHOOK_URL for Slack incoming webhook URL))
 	@if [ -z "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments create $(deployment_name) --template main.jinja \
 		--properties "slackWebhookUrl:'$(SLACK_WEBHOOK_URL)'" --automatic-rollback-on-error; \
@@ -11,7 +12,8 @@ create:
 
 preview:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments list --filter='name:$(deployment_name)' 2>/dev/null))
-	$(if $(SLACK_WEBHOOK_URL),, $(error This task requires SLACK_WEBHOOK_URL as an environment variable))
+	$(eval SLACK_WEBHOOK_URL := $(shell gcloud kms decrypt --ciphertext-file ../secrets.json.enc --plaintext-file - --location us --keyring github-traverse-keyring --key github-traverse-key | grep SLACK_WEBHOOK_URL | sed s/SLACK_WEBHOOK_URL=//))
+	$(if $(SLACK_WEBHOOK_URL),, $(error Secret(secrets.json.enc) must include SLACK_WEBHOOK_URL for Slack incoming webhook URL))
 	@if [ -n "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments update $(deployment_name) --template main.jinja \
 		--properties "slackWebhookUrl:'$(SLACK_WEBHOOK_URL)'" --preview; \
@@ -35,4 +37,5 @@ destroy:
 	@if [ -n "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments delete $(deployment_name); \
 		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-trigger-imagebuild --format="value(id)"` --quiet; \
+		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-noticiationdeploy --format="value(id)"` --quiet; \
 	fi
