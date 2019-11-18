@@ -3,8 +3,8 @@ deployment_name := github-traverse
 .PHONY: create preview cancel update destroy encrypt
 create:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments describe $(deployment_name) 2>/dev/null))
-	$(eval SLACK_WEBHOOK_URL := $(shell gcloud kms decrypt --ciphertext-file ../secrets.json.enc --plaintext-file - --location us --keyring github-traverse-keyring --key github-traverse-key | grep SLACK_WEBHOOK_URL | sed s/SLACK_WEBHOOK_URL=//))
-	$(if $(SLACK_WEBHOOK_URL),, $(error Secret(secrets.json.enc) must include SLACK_WEBHOOK_URL for Slack incoming webhook URL))
+	$(eval SLACK_WEBHOOK_URL := $(shell gcloud kms decrypt --ciphertext-file ../secrets.env.enc --plaintext-file - --location us --keyring github-traverse-keyring --key github-traverse-key | grep SLACK_WEBHOOK_URL | sed s/SLACK_WEBHOOK_URL=//))
+	$(if $(SLACK_WEBHOOK_URL),, $(error Secret(secrets.env.enc) must include SLACK_WEBHOOK_URL for Slack incoming webhook URL))
 	@if [ -z "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments create $(deployment_name) --template main.jinja \
 		--properties "slackWebhookUrl:'$(SLACK_WEBHOOK_URL)'" --automatic-rollback-on-error; \
@@ -12,8 +12,8 @@ create:
 
 preview:
 	$(eval OUTPUT := $(shell gcloud deployment-manager deployments describe $(deployment_name) 2>/dev/null))
-	$(eval SLACK_WEBHOOK_URL := $(shell gcloud kms decrypt --ciphertext-file ../secrets.json.enc --plaintext-file - --location us --keyring github-traverse-keyring --key github-traverse-key | grep SLACK_WEBHOOK_URL | sed s/SLACK_WEBHOOK_URL=//))
-	$(if $(SLACK_WEBHOOK_URL),, $(error Secret(secrets.json.enc) must include SLACK_WEBHOOK_URL for Slack incoming webhook URL))
+	$(eval SLACK_WEBHOOK_URL := $(shell gcloud kms decrypt --ciphertext-file ../secrets.env.enc --plaintext-file - --location us --keyring github-traverse-keyring --key github-traverse-key | grep SLACK_WEBHOOK_URL | sed s/SLACK_WEBHOOK_URL=//))
+	$(if $(SLACK_WEBHOOK_URL),, $(error Secret(secrets.env.enc) must include SLACK_WEBHOOK_URL for Slack incoming webhook URL))
 	@if [ -n "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments update $(deployment_name) --template main.jinja \
 		--properties "slackWebhookUrl:'$(SLACK_WEBHOOK_URL)'" --preview; \
@@ -41,5 +41,5 @@ destroy:
 	fi
 
 encrypt: # Generate encrypted file including secrets
-	@gcloud kms encrypt --plaintext-file ../secrets.json --ciphertext-file ../secrets.json.enc \
+	@gcloud kms encrypt --plaintext-file ../secrets.env --ciphertext-file ../secrets.env.enc \
 		--location us --keyring github-traverse-keyring --key github-traverse-key
