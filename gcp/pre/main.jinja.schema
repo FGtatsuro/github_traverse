@@ -1,0 +1,9 @@
+info:
+  title: github_traverse pre-resources
+  author: Tatsuro Fujii
+  description: |
+    Create GCP resources related to github_traverse project.
+    These resources must be prepared before other resources.
+
+imports:
+  - path: cloudkms.jinja
