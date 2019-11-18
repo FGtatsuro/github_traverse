@@ -4,6 +4,9 @@
 .venv*
 *.egg-info
 dist
+setup.cfg
+setup.py
+MANIFEST.in
 
 .dockerignore
 .git
@@ -23,4 +26,11 @@ requirements-dev.txt
 tags
 pyramid
 
+tmp*
 todo
+
+# GCP
+**/cloudbuild.yaml
+gcp
+**/secrets.env
+.gcloudignore
