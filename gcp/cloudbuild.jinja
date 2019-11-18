@@ -9,7 +9,7 @@ resources:
         name: github_traverse
         owner: FGtatsuro
         push:
-          branch: .*-triggertest
+          branch: (master|.*-triggertest)
   - name: {{ env["name"] }}-noticiationdeploy
     type: gcp-types/cloudbuild-v1:projects.triggers
     properties:
@@ -20,6 +20,6 @@ resources:
         name: github_traverse
         owner: FGtatsuro
         push:
-          branch: .*-triggertest
+          branch: (master|.*-triggertest)
       includedFiles:
         - gcp/notification/*
