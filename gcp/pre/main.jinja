@@ -1,0 +1,11 @@
+{% set PREFIX = "github-traverse" %}
+{% set KEY_REGION = "us" %}
+
+resources:
+  - name: {{ PREFIX }}
+    type: cloudkms.jinja
+    properties:
+      region: {{ KEY_REGION }}
+      rotationPeriod: 5184000s # 60d
+      # Without string explicitly, this value is converted to datetime and validation error occurs.
+      nextRotationTime: "2019-12-31T15:00:00Z"

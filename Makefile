@@ -84,9 +84,12 @@ app/logs:
 app/restart: app/stop app/start
 
 
-.PHONY: gcp
+.PHONY: gcp gcp/pre
 gcp:
 	@(make -C gcp `cat gcp/Makefile | grep -E '^[-_/0-9a-zA-Z]+:' | peco | sed 's/:.*$$//g'`)
+
+gcp/pre:
+	@(make -C gcp/pre `cat gcp/pre/Makefile | grep -E '^[-_/0-9a-zA-Z]+:' | peco | sed 's/:.*$$//g'`)
 
 
 .PHONY: clean lint format tags
