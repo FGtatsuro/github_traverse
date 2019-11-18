@@ -37,7 +37,7 @@ destroy:
 	@if [ -n "$(OUTPUT)" ]; then \
 		gcloud deployment-manager deployments delete $(deployment_name); \
 		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-trigger-imagebuild --format="value(id)"` --quiet; \
-		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-noticiationdeploy --format="value(id)"` --quiet; \
+		gcloud alpha builds triggers delete `gcloud alpha builds triggers describe $(deployment_name)-trigger-noticiationdeploy --format="value(id)"` --quiet; \
 	fi
 
 encrypt: # Generate encrypted file including secrets
