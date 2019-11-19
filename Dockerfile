@@ -17,4 +17,6 @@ RUN pip3 install --no-cache-dir -r requirements.txt -U pip setuptools wheel
 COPY . /usr/src/app
 
 ENTRYPOINT ["gunicorn"]
-CMD ["--paste", "development.ini", "--bind", "0.0.0.0:6543"]
+# Use 8080 port to follow base image.
+# FYI: https://github.com/GoogleCloudPlatform/python-runtime/blob/master/runtime-image/Dockerfile.in#L51
+CMD ["--paste", "development.ini", "--bind", "0.0.0.0:8080"]
