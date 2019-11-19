@@ -15,3 +15,8 @@ COPY requirements.txt /usr/src/app/
 # To use python3, we must use python3/pip3 instead of python/pip.
 RUN pip3 install --no-cache-dir -r requirements.txt -U pip setuptools wheel
 COPY . /usr/src/app
+
+ENTRYPOINT ["gunicorn"]
+# Use 8080 port to follow base image.
+# FYI: https://github.com/GoogleCloudPlatform/python-runtime/blob/master/runtime-image/Dockerfile.in#L51
+CMD ["--paste", "development.ini", "--bind", "0.0.0.0:8080"]
