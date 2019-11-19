@@ -15,3 +15,6 @@ COPY requirements.txt /usr/src/app/
 # To use python3, we must use python3/pip3 instead of python/pip.
 RUN pip3 install --no-cache-dir -r requirements.txt -U pip setuptools wheel
 COPY . /usr/src/app
+
+ENTRYPOINT ["gunicorn"]
+CMD ["--paste", "development.ini", "--bind", "0.0.0.0:6543"]
