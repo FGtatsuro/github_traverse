@@ -1,36 +1,35 @@
+# Application
 **/__pycache__/
 **/*.pyc
-.mypy_cache/
-.venv*
 *.egg-info
 dist
-setup.cfg
 setup.py
 MANIFEST.in
+**/secrets.env
 
-.dockerignore
+# For Development
 .git
 .gitignore
 .github
 **/.gitkeep
-
-.build
-
-Dockerfile
-LICENSE
-Makefile
-README.md
-requirements-dev.txt
-
-# For tag creation
 tags
 pyramid
-
+setup.cfg
+requirements-dev.txt
+.mypy_cache/
+.venv*
+LICENSE
+README.md
+.build
+Makefile
 tmp*
 todo
+
+# Docker
+Dockerfile
+.dockerignore
 
 # GCP
 **/cloudbuild.yaml
 gcp
-**/secrets.env
 .gcloudignore
