@@ -112,5 +112,6 @@ pyramid
 .build
 
 todo
+tmp*
 
 secrets.env
